@@ -96,8 +96,7 @@ degree = st.slider('Choose in this slider the polynomial degree for the regressi
                    min_value=1, 
                    max_value=5, 
                    value=3, 
-                   step=1,
-                   marks={i: str(i) for i in range(1, 6)})
+                   step=1)
 
 fig1 = prepare_figure(df, sizes, 'performance', degree)
 fig2 = prepare_figure(df, sizes, 'tre', degree)
