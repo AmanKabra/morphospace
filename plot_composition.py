@@ -92,7 +92,12 @@ st.title('Composition variations')
 st.write('Zooming into the variance for density = 0.4 and checkers = All')
 
 st.header("First, we will see polynomial regression fits.")
-degree = st.slider('Choose in this slider the polynomial degree for the regression plot:', min_value=1, max_value=5, value=3, step=1)
+degree = st.slider('Choose in this slider the polynomial degree for the regression plot:', 
+                   min_value=1, 
+                   max_value=5, 
+                   value=3, 
+                   step=1,
+                   marks={i: str(i) for i in range(1, 6)})
 
 fig1 = prepare_figure(df, sizes, 'performance', degree)
 fig2 = prepare_figure(df, sizes, 'tre', degree)
