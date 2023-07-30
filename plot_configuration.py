@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-df = pd.read_csv('df.csv')
+df = pd.read_csv('df_configuration.csv')
 
 # Create a deep copy of the DataFrame for each case
 df_copy = df.copy()
