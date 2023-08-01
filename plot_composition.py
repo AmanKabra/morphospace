@@ -96,7 +96,6 @@ def prepare_figure(df, sizes, z_var, degree):
     return fig
 
 st.title('Composition variations')
-st.write('Zooming into the variance for density = 0.4 and checkers = All')
 
 st.header("First, we will see polynomial regression fits.")
 degree = st.slider('Choose in this slider the polynomial degree for the regression plot:', 
