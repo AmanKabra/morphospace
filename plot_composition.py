@@ -18,6 +18,11 @@ density_input = st.selectbox("Select Density Category:", density_options)
 
 df = df[(df['checker_category'] == checker_input) & (df['density_category'] == density_input)]
 
+axes_options = ["index_expertise_level", "index_innovation_level", "index_doing_level", "index_linking_level", "index_challenging_level"]
+
+x_axis = st.selectbox("Select X-axis:", axes_options)
+y_axis = st.selectbox("Select Y-axis:", axes_options)
+
 sizes = [3, 6, 9, 12]
 
 def prepare_interpolated_figure(df, sizes, z_var):
@@ -25,11 +30,11 @@ def prepare_interpolated_figure(df, sizes, z_var):
 
     for idx, size in enumerate(sizes):
         df_size = df[df["size"] == size]
-        scatter = px.scatter_3d(df_size, x='index_expertise_level', y='index_innovation_level', z=z_var, color=z_var)
+        scatter = px.scatter_3d(df_size, x=x_axis, y=y_axis, z=z_var, color=z_var)
         fig.add_trace(scatter.data[0], row=1, col=idx+1)
 
-        x = df_size['index_expertise_level']
-        y = df_size['index_innovation_level']
+        x = df_size[x_axis]
+        y = df_size[y_axis]
         z = df_size[z_var]
         grid_x, grid_y = np.mgrid[min(x):max(x):100j, min(y):max(y):100j]
         grid_z = griddata((x, y), z, (grid_x, grid_y), method='cubic')
@@ -38,17 +43,17 @@ def prepare_interpolated_figure(df, sizes, z_var):
         fig.add_trace(surface, row=1, col=idx+1)
 
     fig.update_layout(height=600, width=1200, title_text="Subplots of different sizes with surface",
-                      scene = dict(xaxis_title='Expertise Level',
-                                   yaxis_title='Innovation Level',
+                      scene = dict(xaxis_title=x_axis,
+                                   yaxis_title=y_axis,
                                    zaxis_title=z_var),
-                      scene2 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene2 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var),
-                      scene3 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene3 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var),
-                      scene4 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene4 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var))
 
     return fig
@@ -58,19 +63,19 @@ def prepare_figure(df, sizes, z_var, degree):
 
     for idx, size in enumerate(sizes):
         df_size = df[df["size"] == size]
-        scatter = px.scatter_3d(df_size, x='index_expertise_level', y='index_innovation_level', z=z_var, color=z_var)
+        scatter = px.scatter_3d(df_size, x=x_axis, y=y_axis, z=z_var, color=z_var)
         fig.add_trace(scatter.data[0], row=1, col=idx+1)
 
         poly = PolynomialFeatures(degree=degree)
-        X = df_size[['index_expertise_level', 'index_innovation_level']]
+        X = df_size[[x_axis, y_axis]]
         y = df_size[z_var]
 
         X_poly = poly.fit_transform(X)
 
         model = LinearRegression().fit(X_poly, y)
 
-        x_grid, y_grid = np.meshgrid(np.linspace(df_size['index_expertise_level'].min(), df_size['index_expertise_level'].max(), num=10),
-                                     np.linspace(df_size['index_innovation_level'].min(), df_size['index_innovation_level'].max(), num=10))
+        x_grid, y_grid = np.meshgrid(np.linspace(df_size[x_axis].min(), df_size[x_axis].max(), num=10),
+                                     np.linspace(df_size[y_axis].min(), df_size[y_axis].max(), num=10))
 
         grid_df = pd.DataFrame(np.vstack([x_grid.ravel(), y_grid.ravel()]).T, columns=X.columns)
 
@@ -80,17 +85,17 @@ def prepare_figure(df, sizes, z_var, degree):
         fig.add_trace(surface, row=1, col=idx+1)
 
     fig.update_layout(height=600, width=1200, title_text=f"Subplots of different sizes with polynomial regression surface for {z_var}",
-                      scene = dict(xaxis_title='Expertise Level',
-                                   yaxis_title='Innovation Level',
+                      scene = dict(xaxis_title=x_axis,
+                                   yaxis_title=y_axis,
                                    zaxis_title=z_var),
-                      scene2 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene2 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var),
-                      scene3 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene3 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var),
-                      scene4 = dict(xaxis_title='Expertise Level',
-                                    yaxis_title='Innovation Level',
+                      scene4 = dict(xaxis_title=x_axis,
+                                    yaxis_title=y_axis,
                                     zaxis_title=z_var))
 
     return fig
