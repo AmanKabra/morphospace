@@ -37,7 +37,7 @@ def prepare_interpolated_figure(df, sizes, z_var):
         y = df_size[y_axis]
         z = df_size[z_var]
         grid_x, grid_y = np.mgrid[min(x):max(x):100j, min(y):max(y):100j]
-        grid_z = griddata((x, y), z, (grid_x, grid_y), method='linear')
+        grid_z = griddata((x, y), z, (grid_x, grid_y), method='nearest')
 
         surface = go.Surface(x=grid_x, y=grid_y, z=grid_z, colorscale='Viridis', showscale=False)
         fig.add_trace(surface, row=1, col=idx+1)
