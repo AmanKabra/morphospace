@@ -10,7 +10,7 @@ from scipy.interpolate import griddata
 
 df = pd.read_csv('df_composition.csv')
 
-checker_options = ["One", "Half", "All"]
+checker_options = ["One", "All"]
 density_options = [0, 0.4, 1]
 
 checker_input = st.selectbox("Select Checker Category:", checker_options)
