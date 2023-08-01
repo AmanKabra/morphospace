@@ -9,7 +9,14 @@ import plotly.subplots as sp
 from scipy.interpolate import griddata
 
 df = pd.read_csv('df_composition.csv')
-df = df[(df['checker_category'] == 'All') & (df['density_category'] == 0.4)]
+
+checker_options = ["One", "Half", "All"]
+density_options = [0, 0.4, 1]
+
+checker_input = st.selectbox("Select Checker Category:", checker_options)
+density_input = st.selectbox("Select Density Category:", density_options)
+
+df = df[(df['checker_category'] == checker_input) & (df['density_category'] == density_input)]
 
 sizes = [3, 6, 9, 12]
 
