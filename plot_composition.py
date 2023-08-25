@@ -25,7 +25,7 @@ def prepare_interpolated_figure(df, z_var, density, width=600, height=600):
 
     surface = go.Surface(x=grid_x, y=grid_y, z=grid_z, colorscale='Viridis', showscale=False)
     fig.add_trace(surface)
-    fig.update_layout(height=600, width=600, title_text=f"3D Plot with Surface (Density = {density})",
+    fig.update_layout(height=1000, width=1000, title_text=f"3D Plot with Surface (Density = {density})",
                       scene=dict(xaxis_title='Expertise Level', yaxis_title='Innovation Level', zaxis_title=z_var))
     return fig
 
