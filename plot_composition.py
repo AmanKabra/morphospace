@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 # Load the data
 df = pd.read_csv('df_aggregated.csv')
 
-def prepare_interpolated_figure(df, z_var, density, width=500, height=500):
+def prepare_interpolated_figure(df, z_var, density, width=300, height=300):
     df = df[df['density'] == density]
     fig = sp.make_subplots(rows=1, cols=1, specs=[[{'type': 'scatter3d'}]])
     
