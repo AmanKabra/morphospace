@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 # Load the data
 df = pd.read_csv('df_aggregated.csv')
 
-def prepare_interpolated_figure(df, z_var, density):
+def prepare_interpolated_figure(df, z_var, density, width=500, height=500):
     df = df[df['density'] == density]
     fig = sp.make_subplots(rows=1, cols=1, specs=[[{'type': 'scatter3d'}]])
     
@@ -25,9 +25,8 @@ def prepare_interpolated_figure(df, z_var, density):
 
     surface = go.Surface(x=grid_x, y=grid_y, z=grid_z, colorscale='Viridis', showscale=False)
     fig.add_trace(surface)
-    fig.update_layout(height=600, width=600, title_text=f"3D Plot with Surface (Density = {density})",
+    fig.update_layout(height=height, width=width, title_text=f"3D Plot with Surface (Density = {density})",
                       scene=dict(xaxis_title='Expertise Level', yaxis_title='Innovation Level', zaxis_title=z_var))
-    
     return fig
 
 df_all = df[df['checker_category'] == 'All']
