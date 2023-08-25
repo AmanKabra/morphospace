@@ -37,7 +37,6 @@ densities = [0, 0.4, 1]
 z_vars = ["performance", "tre"]
 
 def display_plots_for_z_var(df, z_var_name):
-    st.subheader(f"{z_var_name.capitalize()}")
     cols = st.columns(len(densities)) # Create columns based on the number of densities
     for i, density in enumerate(densities):
         fig = prepare_interpolated_figure(df, z_var_name, density)
