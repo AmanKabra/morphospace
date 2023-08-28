@@ -7,7 +7,7 @@ import plotly.subplots as sp
 import plotly.graph_objects as go
 
 # Load the data
-df = pd.read_csv('df_aggregated.csv')
+df = pd.read_csv('df_fitness.csv')
 
 def prepare_interpolated_figure(df, z_var, density, width=600, height=600):
     df = df[df['density'] == density]
@@ -33,7 +33,7 @@ df_all = df[df['checker_category'] == 'All']
 df_one = df[df['checker_category'] == 'One']
 
 densities = [0, 0.4, 1]
-z_vars = ["performance", "tre"]
+z_vars = ["performance", "fitness"]
 
 def display_plots_for_z_var(df, z_var_name):
     cols = st.columns(len(densities)) # Create columns based on the number of densities
@@ -52,7 +52,7 @@ display_plots_for_z_var(df_one, "performance")
 
 st.header("Tre Plots")
 st.subheader("For All")
-display_plots_for_z_var(df_all, "tre")
+display_plots_for_z_var(df_all, "fitness")
 
 st.subheader("For One")
-display_plots_for_z_var(df_one, "tre")
+display_plots_for_z_var(df_one, "fitness")
