@@ -50,7 +50,7 @@ display_plots_for_z_var(df_all, "performance")
 st.subheader("For One")
 display_plots_for_z_var(df_one, "performance")
 
-st.header("Tre Plots")
+st.header("Fitness Plots")
 st.subheader("For All")
 display_plots_for_z_var(df_all, "fitness")
 
