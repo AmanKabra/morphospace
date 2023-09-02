@@ -13,11 +13,11 @@ def prepare_interpolated_figure(df, z_var, density, width=600, height=600):
     df = df[df['density'] == density]
     fig = sp.make_subplots(rows=1, cols=1, specs=[[{'type': 'scatter3d'}]])
     
-    scatter = px.scatter_3d(df, x='index_expertise_level', y='index_innovation_level', z=z_var, color=z_var)
+    scatter = px.scatter_3d(df, x='index_doing_level', y='index_innovation_level', z=z_var, color=z_var)
     fig.add_trace(scatter.data[0])
 
-    grouped = df.groupby(['index_expertise_level', 'index_innovation_level']).agg({z_var: 'mean'}).reset_index()
-    x = grouped['index_expertise_level']
+    grouped = df.groupby(['index_doing_level', 'index_innovation_level']).agg({z_var: 'mean'}).reset_index()
+    x = grouped['index_doing_level']
     y = grouped['index_innovation_level']
     z = grouped[z_var]
     grid_x, grid_y = np.mgrid[min(x):max(x):100j, min(y):max(y):100j]
@@ -26,7 +26,7 @@ def prepare_interpolated_figure(df, z_var, density, width=600, height=600):
     surface = go.Surface(x=grid_x, y=grid_y, z=grid_z, colorscale='Viridis', showscale=False)
     fig.add_trace(surface)
     fig.update_layout(height=500, width=500, title_text=f"3D Plot with Surface (Density = {density})",
-                      scene=dict(xaxis_title='Expertise Level', yaxis_title='Innovation Level', zaxis_title=z_var))
+                      scene=dict(xaxis_title='Doing Level', yaxis_title='Innovation Level', zaxis_title=z_var))
     return fig
 
 df_all = df[df['checker_category'] == 'All']
